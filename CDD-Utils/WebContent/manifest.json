@@ -1,0 +1,170 @@
+{
+	"name": "CDD Utils",
+	"vendor": "CA Technologies",
+	"uniqueId": "CA Technologies - CDD Utils",
+	"description": "Functions for CA Continuous Delivery Director",
+	"version": "1.12",
+	"endpointTemplate": {
+		"uniqueId": "Endpoint",
+		"name": "CDD Utils endpoint",
+		"description": "CDD Utils endpoint",
+		"serviceType": "ENDPOINT",
+		"endPointType": "Endpoint",
+		"url": "Endpoint",
+		"parameters": [
+			{
+				"uniqueId": "URL",
+				"name": "URL",
+				"displayName": "URL",
+				"type": "string",
+				"isOptional": true,
+				"defaultValue": null,
+				"description": "URL"
+			},
+			{
+				"uniqueId": "username",
+				"name": "username",
+				"displayName": "Username",
+				"type": "string",
+				"isOptional": true,
+				"defaultValue": null,
+				"description": "Username"
+			},
+			{
+				"uniqueId": "password",
+				"name": "password",
+				"displayName": "Password",
+				"type": "password",
+				"isOptional": true,
+				"defaultValue": null,
+				"description": "Password"
+			}
+		]
+	},
+	"services": [
+		{
+			"uniqueId": "REST Json",
+			"name": "REST Json",
+			"description": "Executes a REST and extracts an attribute of a JSON return",
+			"serviceType": "TASK",
+			"url": "servlet/tasks/rest",
+			"inputParameters": [
+				{
+					"uniqueId": "url",
+					"name": "url",
+					"displayName": "URL",
+					"type": "string",
+					"isOptional": false,
+					"defaultValue": null,
+					"description": "URL, starting with /",
+					"url": "servlet/tasks/rest/url/values"
+				},
+				{
+					"uniqueId": "method",
+					"name": "method",
+					"displayName": "Method",
+					"type": "string",
+					"isOptional": false,
+					"defaultValue": "GET",
+					"description": "HTTP Method",
+					"possibleValues": [
+						{
+							"value": "GET"
+						},
+						{
+							"value": "POST"
+						},
+						{
+							"value": "PUT"
+						},
+						{
+							"value": "DELETE"
+						},
+						{
+							"value": "PATCH"
+						}
+					]
+				},
+				{
+					"uniqueId": "body",
+					"name": "body",
+					"displayName": "JSON Body",
+					"type": "textarea",
+					"isOptional": true,
+					"defaultValue": null,
+					"description": "JSON Body",
+					"url": "servlet/tasks/rest/body/values"
+				},
+				{
+					"uniqueId": "header",
+					"name": "header",
+					"displayName": "Header",
+					"type": "textarea",
+					"isOptional": true,
+					"defaultValue": null,
+					"description": "Request Header (Line separeted list, with attribute:value)",
+					"url": "servlet/tasks/rest/header/values"
+				},
+				{
+					"uniqueId": "from",
+					"name": "from",
+					"displayName": "Get value from",
+					"type": "string",
+					"isOptional": false,
+					"defaultValue": "RESPONSE BODY (JSON)",
+					"description": "Get value from",
+					"possibleValues": [
+						{
+							"value": "RESPONSE BODY (JSON)",
+							"parameters": [
+								{
+									"uniqueId": "jasonpath",
+									"name": "jasonpath",
+									"displayName": "Json Query",
+									"type": "string",
+									"isOptional": true,
+									"defaultValue": null,
+									"description": "JsonPath (ex. $.list[2].obj.value)",
+									"url": "servlet/tasks/rest/jsonpath/values"
+								}
+							]
+						},
+						{
+							"value": "RESPONSE BODY (TEXT)"
+						},
+						{
+							"value": "RESPONSE HEADER",
+							"parameters": [
+								{
+									"uniqueId": "attribute",
+									"name": "attribute",
+									"displayName": "Attribute",
+									"type": "string",
+									"isOptional": true,
+									"defaultValue": null,
+									"description": "Attribute",
+									"url": "servlet/tasks/rest/attribute/values"
+								}
+							]
+						}
+					]
+				}
+			],
+			"outputParameters": [
+				{
+					"uniqueId": "value",
+					"name": "value",
+					"displayName": "Attribute Value",
+					"description": "Attribute Value"
+				}
+			]
+		},
+		{
+			"name": "Connectivity Test",
+			"description": "Connection Test",
+			"serviceType": "CONNECTIVITY_TEST",
+			"url": "servlet/connectivity-tests/connectivity-test",
+			"uniqueId": "Connectivity Test"
+		}
+	]
+}

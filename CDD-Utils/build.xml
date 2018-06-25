@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<project default="buildJar" name="Creates Jar">
+	
+	<property name="projectName" value="CDD-utils-plugin" />
+	<property name="lib.dir"     value="WebContent/WEB-INF/lib"/>
+	
+	<path id="classpath">
+        <fileset dir="${lib.dir}" includes="**/*.jar"/>
+		<fileset dir="">
+			<filename name="servlet-api.jar"/>
+		</fileset>
+    </path>
+
+    <target name="buildJar">
+
+    	<delete dir="build/classes" />
+    	<delete file="build/${projectName}.war" />
+
+    	<sleep seconds="2"/>
+    		
+    	<mkdir dir="build/classes"/>
+    	
+    	<javac 
+    		includeantruntime="false" srcdir="src" destdir="build/classes" 
+    		fork="yes"
+    		compiler="javac1.7"
+    		classpathref="classpath"/>
+
+    	<copy todir="build/classes">
+    		<fileset dir="src">
+			    <include name="**/*.xml" />
+    			<include name="**/*.properties" />
+			</fileset>
+    	</copy>
+
+		<war destfile="build/${projectName}.war" webxml="WebContent/WEB-INF/web.xml">
+			<fileset dir="WebContent"/>
+			<lib dir="WebContent/WEB-INF/lib"/>
+			<classes dir="build/classes"/>
+		</war>
+    	
+    </target>
+	
+</project>
